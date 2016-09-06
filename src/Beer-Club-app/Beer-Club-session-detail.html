@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<dom-module id="Beer-Club-session-detail">
+	<template>
+		<style>
+
+
+		</style>
+		<firebase-document
+		app-name="beerClub"
+		path="/sessions/[[key]]"
+		data="{{session}}">
+	</firebase-document>
+
+	<paper-item>{{session.sessionDate}}</paper-item>
+
+</template>
+<script>
+	Polymer({
+		is: 'Beer-Club-session-detail',
+
+		properties: {
+			key: {
+				type: String,
+				value: function(){
+					return ' ';
+				}
+			},
+			allowEdit: {
+				type: Boolean,
+				value: false
+			}
+		}
+	});
+</script>
+</dom-module>

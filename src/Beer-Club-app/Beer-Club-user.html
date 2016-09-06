@@ -1,0 +1,82 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<!-- <link rel="import" href="../../bower_components/polymerfire/firebase-document.html"> -->
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+
+<dom-module id="Beer-Club-user">
+	<template>
+		<style>
+			
+		</style>
+
+		<firebase-auth id="auth" appName="beerClub" user="{{user}}"></firebase-auth>
+
+		<paper-button hidden$={{auth.signedIn}} on-click="_showLogIn">Log In</paper-button>
+		<paper-menu-button hidden$={{auth.signedIn}}>
+			<paper-button class="dropdown-trigger">
+				<iron-icon icon="account-circle" "></iron-icon>
+				<!-- {{_computeEmail()}} -->
+				{{auth.user.email}}
+			</paper-button>
+			<paper-material class="dropdown-content">
+				<paper-item>Item 2</paper-item>
+			</paper-material>
+		</paper-menu-button>
+		<paper-dialog id="loginDialog">
+			<h2>Log In</h2>
+			<div>
+				<paper-input id="emailInput" label="email" value="{{emailValue}}">
+					<paper-icon-button suffix icon="clear" tabindex="-1"></paper-icon-button>
+				</paper-input>
+				<paper-input id="passwordInput" label="password" type="password" value="{{passwordValue}}">
+					<paper-icon-button suffix icon="clear" tabindex="-1"></paper-icon-button>
+				</paper-input>
+				<div class="buttons">
+					<paper-button on-tap="_createUser">Create User</paper-button>
+					<paper-button autofocus on-tap="_signIn">Login</paper-button>
+				</div>
+			</div>
+		</paper-dialog>
+
+	</template>
+	<script>
+		Polymer({
+
+			is: 'Beer-Club-user',
+
+			properties: {
+				auth: Object
+			},
+			_showLogIn: function() {
+				this.$.loginDialog.open();
+			},
+			_signIn: function() {
+				console.log(this.$.auth.signedIn);
+				var email = this.emailValue;
+				console.log(email);
+				var password = this.passwordValue;
+				console.log(password);
+				console.log(this.$.auth);
+				// this.$.auth.signInWithEmailAndPassword(email, password)
+				this.$.auth.signInAnonymously()
+				.then(function(response) {console.log('logged in');})
+				.catch(function(error) {console.log('error')});
+				
+				console.log(this.$.auth.signedIn);
+			},
+
+		});
+	</script>
+</dom-module>

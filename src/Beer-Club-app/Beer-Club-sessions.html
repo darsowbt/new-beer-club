@@ -1,0 +1,51 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="Beer-Club-sessions">
+	<template>
+		<style>
+
+
+		</style>
+		<firebase-query
+			id="sessionQuery"
+			app-name="beerClub"
+			path="/sessions"
+			data="{{sessions}}">
+		</firebase-query>
+
+		<template is="dom-repeat" items="{{sessions}}">
+			<paper-card heading="{{item.sessionID}}" image="" elevation="1" animated-shadow="false">
+				<div class="card-content">{{item.sessionDate}}</div>
+				<div class="card-actions">
+					<paper-button raised on-tap="edit">Edit</paper-button>
+					<paper-button raised>Delete</paper-button>
+				</div>
+			</paper-card>
+		</template>
+	</template>
+	<script>
+		Polymer({
+			is: 'Beer-Club-sessions',
+
+			// properties: {
+			// 	sessions: {
+			// 		type: Array,
+			// 		value: function(){
+			// 			return [{'sessionID' : 1, 'sessionDate' : '01-Aug-2016'},
+			// 			{'sessionID' : 2, 'sessionDate' : '02-Aug-2016'}, 
+			// 			{'sessionID' : 3, 'sessionDate' : '03-Aug-2016'}];
+			// 		}
+			// 	}
+			// }
+			edit: function(e) {
+				console.log(e.model.item);
+				this.fire("selectKey", { keyType:  "session-detail", key : e.model.item.$key});
+			}
+		});
+	</script>
+</dom-module>

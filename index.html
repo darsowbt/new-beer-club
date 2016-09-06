@@ -1,0 +1,22 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Beer Club</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymerfire/firebase-app.html">
+    <link rel="import" href="/src/Beer-Club-app/Beer-Club-app.html">
+  </head>
+  <body>
+    <firebase-app
+      name="beerClub"
+      api-key="AIzaSyCtPrH_2vdT2e4g6a07azRHCgrDUm6AGLc"
+      auth-domain="beer-club-ebef0.firebaseapp.com"
+      database-url="https://beer-club-ebef0.firebaseio.com">
+    </firebase-app>
+    <Beer-Club-app></Beer-Club-app>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "Beer Club",
+  "short_name": "Beer Club",
+  "description": "Beer Club Application",
+  "start_url": "/",
+  "display": "standalone"
+}
