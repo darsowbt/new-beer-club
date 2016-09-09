@@ -8,7 +8,7 @@
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 
-<!-- <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html"> -->
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
@@ -134,7 +134,8 @@
       },
 
       listeners: {
-        "selectKey" : "handleSelectKey"
+        "selectKey" : "handleSelectKey",
+        "login" : "login"
       },
 
       onLayoutChange: function(wide) {
@@ -149,6 +150,21 @@
         this.set('route.path', '/'+e.detail.keyType+'/'+e.detail.key);
         // this.set('routeData.page' , e.detail.keyType);
         // this.set('subrouteData.key' , e.detail.key);
+      },
+
+      login: function(e) {
+        console.log(this.$.auth.signedIn);
+        var email = e.detail.email;
+        console.log(email);
+        var password = e.detail.password;
+        console.log(password);
+        console.log(this.$.auth);
+        // this.$.auth.signInWithEmailAndPassword(email, password)
+        this.$.auth.signInAnonymously()
+        .then(function(response) {console.log('logged in');})
+        .catch(function(error) {console.log(error)});
+        
+        console.log(this.$.auth.signedIn);
       }
 
     });

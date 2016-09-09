@@ -21,17 +21,18 @@
 			
 		</style>
 
-		<firebase-auth id="auth" appName="beerClub" user="{{user}}"></firebase-auth>
+		<firebase-auth id="auth" app-Name="beerClub" user="{{user}}" signedIn="{{signedIn}}"></firebase-auth>
 
-		<paper-button hidden$={{auth.signedIn}} on-click="_showLogIn">Log In</paper-button>
-		<paper-menu-button hidden$={{auth.signedIn}}>
+		<paper-button on-click="_showLogIn">Log In</paper-button>
+		<paper-menu-button hidden$="{{signedIn}}">
 			<paper-button class="dropdown-trigger">
-				<iron-icon icon="account-circle" "></iron-icon>
+				<iron-icon icon="account-circle"></iron-icon>
 				<!-- {{_computeEmail()}} -->
 				{{auth.user.email}}
 			</paper-button>
 			<paper-material class="dropdown-content">
 				<paper-item>Item 2</paper-item>
+				<paper-button on-click="_logOut">Log Out</paper-button>
 			</paper-material>
 		</paper-menu-button>
 		<paper-dialog id="loginDialog">
@@ -65,17 +66,21 @@
 			_signIn: function() {
 				console.log(this.$.auth.signedIn);
 				var email = this.emailValue;
-				console.log(email);
 				var password = this.passwordValue;
-				console.log(password);
-				console.log(this.$.auth);
-				// this.$.auth.signInWithEmailAndPassword(email, password)
-				this.$.auth.signInAnonymously()
-				.then(function(response) {console.log('logged in');})
-				.catch(function(error) {console.log('error')});
+				this.$.auth.signInWithEmailAndPassword(email, password)
+				.then(function(response) {console.log(this.signedIn);})
+				.catch(function(error) {console.log(error);});
 				
-				console.log(this.$.auth.signedIn);
+				console.log(this.signedIn);
+
+				// this.fire("login", { email:  this.emailValue , password : this.passwordValue});
 			},
+			_logOut: function() {
+				console.log(this.$.auth.signedIn);
+				this.$.auth.signOut()
+				.then(function(response) {console.log('Logged Out');})
+				.catch(function(error) {console.log(error);});
+			}
 
 		});
 	</script>
